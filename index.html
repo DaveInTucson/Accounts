@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset='utf-8'>
+  <title>Accounts v2</title>
+  <link rel='stylesheet' type='text/css' href='css/accounts.css' />
+</head><body ng-app='Accounts'>
+
+  <ui-view>
+    <div class="text-center initial-loading">
+      <h2>Loading Site...</h2>
+    </div>
+  </ui-view>
+
+  <!-- libraries -->
+  <script src='/js/angular-1.6.6.js'></script>
+  <script>console.log('angular=', angular);</script>
+  <script src="/js/angular-ui-router-1.0.3.js"></script>
+
+  <!-- DB module -->
+  <script src='src/db/db.module.js'></script>
+
+  <!-- main Accounts module -->
+  <script src='src/accounts/accounts.module.js'></script>
+  <script src='src/accounts/accounts.routes.js'></script>
+</body></html>
