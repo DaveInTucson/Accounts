@@ -1,1 +1,19 @@
+body {
+  margin-left: 1em;
+}
 
+table.grid-table
+{
+  border-collapse: collapse;
+}
+
+table.grid-table th, table.grid-table td
+{
+  border: 1px solid black;
+  padding-left: .3em;
+  padding-right: .3em;
+}
+
+.currency {
+  text-align: right;
+}

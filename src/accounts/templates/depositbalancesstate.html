@@ -1,0 +1,23 @@
+<h1>Deposit account balances</h1>
+
+
+<table class='grid-table'>
+  <tr>
+    <th>Account</th>
+    <th>Pending balance</th>
+    <th>Cleared balance</th>
+    <th>P-C</th>
+  </tr>
+  <tr ng-repeat='account in $ctrl.depositBalances'>
+    <td>{{account.name}}</td>
+    <td class='currency'>{{account.pending_balance | currency}}</td>
+    <td class='currency'>{{account.cleared_balance | currency}}</td>
+    <td class='currency'>{{account.pending_balance-account.cleared_balance | currency}}</td>
+  </tr>
+  <tr>
+    <td>Total</td>
+    <td class='currency'>{{$ctrl.pendingTotal | currency}}</td>
+    <td class='currency'>{{$ctrl.clearedTotal | currency}}</td>
+    <td class='currency'>{{$ctrl.pendingTotal - $ctrl.clearedTotal | currency}}</td>
+  </tr>
+</table>

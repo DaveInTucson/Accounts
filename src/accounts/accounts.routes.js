@@ -13,14 +13,28 @@
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('accounts', {
-        abstract: true,
-        templateUrl: 'src/accounts/templates/accounts.template.html',
-      })
-      .state('accounts.front', {
+      .state('depositBalances', {
         url: '/',
-        templateUrl: 'src/accounts/templates/accounts.front.html',
+        templateUrl: 'src/accounts/templates/depositbalancesstate.html',
+        controller: 'DepositBalancesStateController as $ctrl',
+        resolve: {
+          depositBalances: ['AccountDBService', function(AccountDBService) {
+            return AccountDBService.getDepositBalances();
+          }],
+        }
       })
+      .state('accountTransactions', {
+        url: '/accountTransactions?accountID&month',
+        templateUrl : 'src/accounts/templates/accounttransactionisstate.html',
+        controller : 'AccountTransactionsStateController as $ctrl',
+        resolve : {
+          transactionDetails : ['$stateParms', 'AccountDBService',
+            function($stateParms, AccountDBService) {
+              return AccountDBService.getTransactionDetails($stateParams.accountID, $stateParams.month);
+            }],
+        }
+      })
+      ;
   };
   console.log('leaving accounts.routes.js');
 })();

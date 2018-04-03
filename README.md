@@ -11,3 +11,5 @@ platform for extending it beyond where I got using Handlebars
 
 The first step is to replicate more or less the functionality that's already
 working in the Handlebars version.
+
+* Implemented depostbalances state, started on accountTransactions state
