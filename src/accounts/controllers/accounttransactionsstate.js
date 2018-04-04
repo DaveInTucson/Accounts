@@ -15,13 +15,12 @@
     {
       if (transactions[i].status !== 'void')
       {
-        let amount = transactions[i].amount;
         if (transactions[i].from_id === transactionDetails.account_id)
-          amount *= -1;
+          transactions[i].amount *= -1;
 
-        pendingBalance += amount;
+        pendingBalance += transactions[i].amount;
         if (transactions[i].status === 'cleared')
-          clearedBalance += amount;
+          clearedBalance += transactions[i].amount;
       }
 
       transactions[i].pendingBalance = pendingBalance;

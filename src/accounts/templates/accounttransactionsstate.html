@@ -16,17 +16,17 @@
     <td>{{$ctrl.transactionDetails.balance_date}}</td>
     <td>Opening Balance</td>
     <td></td>
-    <td>{{$ctrl.transactionDetails.pending_balance}}</td>
-    <td>{{$ctrl.transactionDetails.cleared_balance}}</td>
+    <td class='currency'>{{$ctrl.transactionDetails.pending_balance | currency}}</td>
+    <td class='currency'>{{$ctrl.transactionDetails.cleared_balance | currency}}</td>
     <td></td>
     <td></td>
   </tr>
   <tr ng-repeat='transaction in $ctrl.transactionDetails.transactions'>
     <td>{{transaction.date_posted}}</td>
-    <td>{{$ctrl.getOtherAccount(transaction).name}}</td>
-    <td>{{transaction.amount | currency}}</td>
-    <td>{{transaction.pendingBalance | currency}}</td>
-    <td>{{transaction.clearedBalance | currency}}</td>
+    <td><account-link account='$ctrl.getOtherAccount(transaction)', month='transaction.date_posted'></account-link></td>
+    <td class='currency'>{{transaction.amount | currency}}</td>
+    <td class='currency'>{{transaction.pendingBalance | currency}}</td>
+    <td class='currency'>{{transaction.clearedBalance | currency}}</td>
     <td>{{transaction.status}}</td>
     <td>{{transaction.note}}</td>
   </tr>

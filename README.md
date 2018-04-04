@@ -14,3 +14,4 @@ working in the Handlebars version.
 
 * Implemented depostbalances state, started on accountTransactions state
 * Implemented basic transactions display
+* Added account-link component and account liknks to transactions display
