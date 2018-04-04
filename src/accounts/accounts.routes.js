@@ -25,11 +25,11 @@
       })
       .state('accountTransactions', {
         url: '/accountTransactions?accountID&month',
-        templateUrl : 'src/accounts/templates/accounttransactionisstate.html',
+        templateUrl : 'src/accounts/templates/accounttransactionsstate.html',
         controller : 'AccountTransactionsStateController as $ctrl',
         resolve : {
-          transactionDetails : ['$stateParms', 'AccountDBService',
-            function($stateParms, AccountDBService) {
+          transactionDetails : ['$stateParams', 'AccountDBService',
+            function($stateParams, AccountDBService) {
               return AccountDBService.getTransactionDetails($stateParams.accountID, $stateParams.month);
             }],
         }

@@ -1,1 +1,33 @@
-account transactions state
+
+<h1>Account {{$ctrl.getAccount($ctrl.transactionDetails.account_id).name}}
+  for {{$ctrl.transactionDetails.month}}</h1>
+
+<table class='monthly-statement'>
+  <tr>
+    <th>Date</th>
+    <th>Account</th>
+    <th>Amount</th>
+    <th>Pending</th>
+    <th>Cleared</th>
+    <th>Status</th>
+    <th>Note</th>
+  </tr>
+  <tr>
+    <td>{{$ctrl.transactionDetails.balance_date}}</td>
+    <td>Opening Balance</td>
+    <td></td>
+    <td>{{$ctrl.transactionDetails.pending_balance}}</td>
+    <td>{{$ctrl.transactionDetails.cleared_balance}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr ng-repeat='transaction in $ctrl.transactionDetails.transactions'>
+    <td>{{transaction.date_posted}}</td>
+    <td>{{$ctrl.getOtherAccount(transaction).name}}</td>
+    <td>{{transaction.amount | currency}}</td>
+    <td>{{transaction.pendingBalance | currency}}</td>
+    <td>{{transaction.clearedBalance | currency}}</td>
+    <td>{{transaction.status}}</td>
+    <td>{{transaction.note}}</td>
+  </tr>
+</table>

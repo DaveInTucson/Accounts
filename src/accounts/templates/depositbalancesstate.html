@@ -9,7 +9,7 @@
     <th>P-C</th>
   </tr>
   <tr ng-repeat='account in $ctrl.depositBalances'>
-    <td>{{account.name}}</td>
+    <td><a ui-sref='accountTransactions({accountID:account.id})'>{{account.name}}</a></td>
     <td class='currency'>{{account.pending_balance | currency}}</td>
     <td class='currency'>{{account.cleared_balance | currency}}</td>
     <td class='currency'>{{account.pending_balance-account.cleared_balance | currency}}</td>

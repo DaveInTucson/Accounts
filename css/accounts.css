@@ -2,10 +2,10 @@ body {
   margin-left: 1em;
 }
 
-table.grid-table
-{
-  border-collapse: collapse;
-}
+/* Preferred table defaults */
+table { border-collapse: collapse; }
+th { text-align: left; }
+td { vertical-align: top; }
 
 table.grid-table th, table.grid-table td
 {
@@ -16,4 +16,30 @@ table.grid-table th, table.grid-table td
 
 .currency {
   text-align: right;
+}
+
+
+.monthly-statement th
+{
+    color: white;
+    background: #0f2c6e;
+}
+
+.monthly-statement tr:nth-child(2n)
+{
+    background: #d8dce8;
+}
+
+.monthly-statement td, .monthly-statement th
+{
+    padding-left: .3em;
+    padding-right: .3em;
+}
+
+.monthly-statement .money { text-align: right }
+.monthly-statement .withdrawal { color: red }
+
+.monthly-statement td:last-child
+{
+    max-width: 450px;
 }

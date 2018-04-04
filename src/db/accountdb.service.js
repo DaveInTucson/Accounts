@@ -5,6 +5,11 @@
   angular.module('DB')
     .service('AccountDBService', AccountDBService);
 
+  // float_re is incomplete, but close enough for my purposes
+  let int_re   = /^-?\d+$/;
+  let float_re = /^-?\d+\.\d+$/;
+  let date_re  = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
+
   function parseNumbers(value)
   {
     if (undefined === value) return value;
@@ -28,16 +33,21 @@
     if ('string' !== typeof value)
       return value;
 
-    let number = parseFloat(value);
-    if (isNaN(number)) return value;
-    return number;
+    // We can't just call parseFloat(value) and check if that's a number, because
+    // parseFloat('2018-04-01') === 2018, which would result in lost data
+    if (int_re.exec(value))
+      return parseInt(value);
+    if (float_re.exec(value))
+      return parseFloat(value);
+    return value;
   }
 
-  AccountDBService.$inject = ['ApiBasePath', '$http'];
-  function AccountDBService (ApiBasePath, $http)
+  AccountDBService.$inject = ['ApiBasePath', '$http', '$q'];
+  function AccountDBService (ApiBasePath, $http, $q)
   {
     let service = this;
     console.log('in AccountDBService');
+    service.accounts = null;
 
     function ajaxGet(config)
     {
@@ -51,9 +61,7 @@
 
     service.getDepositBalances = function()
     {
-      return ajaxGet({
-        url: ApiBasePath + '/get-deposit-balances',
-      })
+      return ajaxGet({ url: ApiBasePath + '/get-deposit-balances' });
     };
 
     service.getTransactionDetails = function(accountID, month)
@@ -64,6 +72,21 @@
           'accountID' : accountID,
           'month' : month,
         }
+      });
+    }
+    service.getAccounts = function()
+    {
+      if (service.accounts)
+      {
+        let deferred = $q.defer();
+        deferred.resolve(service.accounts);
+        return deferred.promise;
+      }
+      return ajaxGet({ url: ApiBasePath + '/get-accounts' })
+      .then(function(accounts)
+      {
+        service.accounts = accounts;
+        return accounts;
       });
     }
   };
