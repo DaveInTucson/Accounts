@@ -53,8 +53,13 @@
 
     $ctrl.getOtherAccount = function(transaction)
     {
-      if (transaction.from_id === $ctrl.transactionDetails.accountid)
+      //console.log('getOtherAccount(', transaction.date_posted, ')');
+      if (transaction.from_id === $ctrl.transactionDetails.account_id)
+      {
+        //console.log('getOtherAccount(', transaction.date_posted, ') returns to account');
         return $ctrl.getAccount(transaction.to_id);
+      }
+      //console.log('getOtherAccount(', transaction.date_posted, ') returns from account');
       return $ctrl.getAccount(transaction.from_id);
     };
   };

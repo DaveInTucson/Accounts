@@ -14,7 +14,7 @@
   {
     if (undefined === value) return value;
     if (null === value) return value;
-    if ('number' == typeof value) return value;
+    if ('number' === typeof value) return value;
 
     if (Array.isArray(value))
     {
@@ -51,10 +51,26 @@
 
     function ajaxGet(config)
     {
-      if (config.hasOwnProperty('method'))
       config.method = 'GET';
 
       return $http(config).then(function(response) {
+        return parseNumbers(response.data);
+      });
+    }
+
+    function ajaxPost(config)
+    {
+      // for some reason $http doesn't take care of form encoding automatically,
+      // so we must do it ourselves
+      let post = {
+        method: 'POST',
+        url: config.url,
+        data: $.param(config.data), // uses jQuery
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      };
+      return $http(post).then(function(response) {
         return parseNumbers(response.data);
       });
     }
@@ -73,7 +89,7 @@
           'month' : month,
         }
       });
-    }
+    };
     service.getAccounts = function()
     {
       if (service.accounts)
@@ -88,7 +104,21 @@
         service.accounts = accounts;
         return accounts;
       });
-    }
+    };
+
+    service.updateTransactionStatus = function(transaction)
+    {
+      return ajaxPost({
+        url: ApiBasePath + '/update-transaction-status',
+        data : {
+          date_posted : transaction.date_posted,
+          from_id     : transaction.from_id,
+          to_id       : transaction.to_id,
+          id          : transaction.id,
+          status      : transaction.status,
+        },
+      });
+    };
   };
 
   console.log('accountdb.service.js done');
