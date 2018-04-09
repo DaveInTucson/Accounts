@@ -16,3 +16,5 @@ working in the Handlebars version.
 * Implemented basic transactions display
 * Added account-link component and account links to transactions display
 * Added status selector and logic to update database
+* Refactored Ajax logic into AjaxUtilsService, removed some log calls, cleaned
+  up the logic in computeBalances (accounttransactionsstate.js)

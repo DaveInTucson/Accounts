@@ -2,14 +2,14 @@
 {
   'use strict';
 
-  console.log('in accounts.routes.js');
+  //console.log('in accounts.routes.js');
   angular.module('Accounts')
     .config(routeConfig);
 
   routeConfig.$inject = ['$urlRouterProvider', '$stateProvider'];
   function routeConfig ($urlRouterProvider, $stateProvider)
   {
-    console.log('in routeConfig');
+    //console.log('in routeConfig');
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
@@ -36,5 +36,5 @@
       })
       ;
   };
-  console.log('leaving accounts.routes.js');
+  //console.log('leaving accounts.routes.js');
 })();
