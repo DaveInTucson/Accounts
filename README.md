@@ -20,3 +20,5 @@ working in the Handlebars version.
   up the logic in computeBalances (accounttransactionsstate.js)
 * Refactored transaction annotation logic to simplify balance calculation and
   account access, bug fixes
+* Created AccountCacheService and refactored AccountTransactionsStateController
+  to use it

@@ -28,7 +28,7 @@
     }
   } // annotateTransactions
 
-  // Compute running balances for each transaction. Note that this uses the 
+  // Compute running balances for each transaction. Note that this uses the
   // relative_amount field, so annotateTransactions needs to be called before
   // this will produce useful results
   function computeBalances (transactionDetails)
@@ -52,37 +52,24 @@
   }
 
 
-  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountDBService'];
-  function AccountTransactionsStateController(transactionDetails, AccountDBService)
+  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService'];
+  function AccountTransactionsStateController(transactionDetails, AccountCacheService)
   {
     let $ctrl = this;
 
     $ctrl.transactionDetails = transactionDetails;
-    $ctrl.accounts = null;
 
     annotateTransactions($ctrl.transactionDetails);
     computeBalances($ctrl.transactionDetails);
 
-    AccountDBService.getAccounts().then(function(accounts) {
-      $ctrl.accounts = accounts;
-    });
-
     $ctrl.getAccount = function(accountID)
     {
-      if ($ctrl.accounts) return $ctrl.accounts[accountID];
-      return null;
+      return AccountCacheService.getAccount(accountID);
     };
 
     $ctrl.getOtherAccount = function(transaction)
     {
-      //console.log('getOtherAccount(', transaction.date_posted, ')');
-      if (transaction.from_id === $ctrl.transactionDetails.account_id)
-      {
-        //console.log('getOtherAccount(', transaction.date_posted, ') returns to account');
-        return $ctrl.getAccount(transaction.to_id);
-      }
-      //console.log('getOtherAccount(', transaction.date_posted, ') returns from account');
-      return $ctrl.getAccount(transaction.from_id);
+      return $ctrl.getAccount(transaction.other_account_id);
     };
 
     $ctrl.computeBalances = function()
