@@ -65,7 +65,7 @@
   }
 
   AjaxUtilsService.$inject = ['$http', '$q'];
-  function AjaxUtilsService($http)
+  function AjaxUtilsService($http, $q)
   {
     let service = this;
 

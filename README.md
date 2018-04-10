@@ -18,3 +18,5 @@ working in the Handlebars version.
 * Added status selector and logic to update database
 * Refactored Ajax logic into AjaxUtilsService, removed some log calls, cleaned
   up the logic in computeBalances (accounttransactionsstate.js)
+* Refactored transaction annotation logic to simplify balance calculation and
+  account access, bug fixes

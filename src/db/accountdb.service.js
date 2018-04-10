@@ -5,8 +5,8 @@
   angular.module('DB')
     .service('AccountDBService', AccountDBService);
 
-  AccountDBService.$inject = ['AjaxUtilsService'];
-  function AccountDBService (AjaxUtilsService)
+  AccountDBService.$inject = ['ApiBasePath', 'AjaxUtilsService'];
+  function AccountDBService (ApiBasePath, AjaxUtilsService)
   {
     let service = this;
     //console.log('in AccountDBService');

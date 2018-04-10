@@ -5,6 +5,32 @@
   angular.module('Accounts')
     .controller('AccountTransactionsStateController', AccountTransactionsStateController);
 
+  // this function annotates each transaction with some useful information that
+  // will make it easier to do stuff like compute account balances, and find
+  // the other account involved in the transaction
+  function annotateTransactions(transactionDetails)
+  {
+    let transactions = transactionDetails.transactions;
+    for (let i = 0; i < transactions.length; i++)
+    {
+      transactions[i].account_id = transactionDetails.account_id;
+      if (transactionDetails.account_id === transactions[i].from_id)
+      {
+        transactions[i].relative_amount = -transactions[i].amount;
+        transactions[i].other_account_id = transactions[i].to_id;
+      }
+      else if (transactionDetails.account_id === transactions[i].to_id)
+      {
+        transactions[i].relative_amount = transactions[i].amount;
+        transactions[i].other_account_id = transactions[i].from_id;
+      }
+      else throw "this should never happen";
+    }
+  } // annotateTransactions
+
+  // Compute running balances for each transaction. Note that this uses the 
+  // relative_amount field, so annotateTransactions needs to be called before
+  // this will produce useful results
   function computeBalances (transactionDetails)
   {
     let pendingBalance = transactionDetails.pending_balance;
@@ -13,22 +39,18 @@
     let transactions = transactionDetails.transactions;
     for (let i = 0; i < transactions.length; i++)
     {
-      // the >0 check is included so we can call this function multiple times on the same data
-      // to recompute balances as and when status values are updated or transactions are added
-      if (transactions[i].from_id === transactionDetails.account_id && transactions[i].amount > 0)
-        transactions[i].amount *= -1;
-
       if (transactions[i].status !== 'void')
       {
-        pendingBalance += transactions[i].amount;
+        pendingBalance += transactions[i].relative_amount;
         if (transactions[i].status === 'cleared')
-          clearedBalance += transactions[i].amount;
+          clearedBalance += transactions[i].relative_amount;
       }
 
       transactions[i].pendingBalance = pendingBalance;
       transactions[i].clearedBalance = clearedBalance;
     }
   }
+
 
   AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountDBService'];
   function AccountTransactionsStateController(transactionDetails, AccountDBService)
@@ -38,7 +60,9 @@
     $ctrl.transactionDetails = transactionDetails;
     $ctrl.accounts = null;
 
-    computeBalances(transactionDetails);
+    annotateTransactions($ctrl.transactionDetails);
+    computeBalances($ctrl.transactionDetails);
+
     AccountDBService.getAccounts().then(function(accounts) {
       $ctrl.accounts = accounts;
     });
