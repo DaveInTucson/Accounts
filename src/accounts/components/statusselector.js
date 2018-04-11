@@ -11,29 +11,29 @@
       },
     });
 
-  StatusSelectorController.$inject = ['AccountDBService'];
-  function StatusSelectorController(AccountDBService)
+  StatusSelectorController.$inject = ['AccountDBService', '$scope'];
+  function StatusSelectorController(AccountDBService, $scope)
   {
     let $ctrl = this;
     if ($ctrl.transaction) $ctrl.originalStatus = $ctrl.transaction.status;
 
     $ctrl.onChange = function()
     {
-      console.log('in onChange');
       try {
         AccountDBService.updateTransactionStatus($ctrl.transaction)
         .then(function(result)
         {
-          console.log('result=', result);
+          console.log('transaction status updated, result=', result);
+          $ctrl.originalStatus = $ctrl.transaction.status;
+          $scope.$emit('accountdetails:recomputeBalance', )
         })
         .catch(function(result) {
-          console.log('caught result=', result)
-          $ctrl.transaction = $ctrl.originalStatus;
+          console.log('transaction status error, caught result=', result)
+          $ctrl.transaction.status = $ctrl.originalStatus;
         });
       } catch (e) {
           console.log('caught exception', e);
       }
-      console.log('exiting onChange');
     }
   }
 })();

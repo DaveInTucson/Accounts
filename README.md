@@ -22,3 +22,4 @@ working in the Handlebars version.
   account access, bug fixes
 * Created AccountCacheService and refactored AccountTransactionsStateController
   to use it
+* Added code to rebalance account when status changes, bug fix

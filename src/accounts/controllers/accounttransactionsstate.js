@@ -52,8 +52,8 @@
   }
 
 
-  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService'];
-  function AccountTransactionsStateController(transactionDetails, AccountCacheService)
+  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService', '$scope'];
+  function AccountTransactionsStateController(transactionDetails, AccountCacheService, $scope)
   {
     let $ctrl = this;
 
@@ -72,9 +72,13 @@
       return $ctrl.getAccount(transaction.other_account_id);
     };
 
-    $ctrl.computeBalances = function()
+    let cancelFn = $scope.$on('accountdetails:recomputeBalance', function ()
     {
+      console.log('received accountdetails:recomputeBalance');
+      computeBalances($ctrl.transactionDetails);
+    });
 
-    }
+    $ctrl.$onDestroy = function()
+    { cancelFn(); }
   };
 })();
