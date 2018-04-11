@@ -23,3 +23,4 @@ working in the Handlebars version.
 * Created AccountCacheService and refactored AccountTransactionsStateController
   to use it
 * Added code to rebalance account when status changes, bug fix
+* refactored transaction detail table into its own component

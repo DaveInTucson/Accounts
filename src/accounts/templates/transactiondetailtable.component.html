@@ -1,0 +1,29 @@
+<table class='monthly-statement'>
+  <tr>
+    <th>Date</th>
+    <th>Account</th>
+    <th>Amount</th>
+    <th>Pending</th>
+    <th>Cleared</th>
+    <th>Status</th>
+    <th>Note</th>
+  </tr>
+  <tr>
+    <td>{{$ctrl.openingDate}}</td>
+    <td>Opening Balance</td>
+    <td></td>
+    <td class='currency'>{{$ctrl.openingPendingBalance | currency}}</td>
+    <td class='currency'>{{$ctrl.openingClearedBalance | currency}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr ng-repeat='transaction in $ctrl.transactions'>
+    <td>{{transaction.date_posted}}</td>
+    <td><account-link account='$ctrl.getOtherAccount(transaction)', month='transaction.date_posted'></account-link></td>
+    <td class='currency'>{{transaction.amount | currency}}</td>
+    <td class='currency'>{{transaction.pendingBalance | currency}}</td>
+    <td class='currency'>{{transaction.clearedBalance | currency}}</td>
+    <td><status-selector transaction='transaction'></status-selector></td>
+    <td>{{transaction.note}}</td>
+  </tr>
+</table>
