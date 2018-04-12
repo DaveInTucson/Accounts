@@ -8,9 +8,9 @@
         controller: TransactionDetailTableController,
         bindings: {
           transactions: '<',
-          openingDate: '<',
-          openingPendingBalance: '<',
-          openingClearedBalance: '<',
+          openingDate: '@',
+          openingPendingBalance: '@',
+          openingClearedBalance: '@',
         },
     });
 

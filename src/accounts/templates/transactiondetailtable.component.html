@@ -20,7 +20,7 @@
   <tr ng-repeat='transaction in $ctrl.transactions'>
     <td>{{transaction.date_posted}}</td>
     <td><account-link account='$ctrl.getOtherAccount(transaction)', month='transaction.date_posted'></account-link></td>
-    <td class='currency'>{{transaction.amount | currency}}</td>
+    <td class='currency'>{{transaction.relative_amount | currency}}</td>
     <td class='currency'>{{transaction.pendingBalance | currency}}</td>
     <td class='currency'>{{transaction.clearedBalance | currency}}</td>
     <td><status-selector transaction='transaction'></status-selector></td>

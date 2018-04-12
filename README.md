@@ -24,3 +24,10 @@ working in the Handlebars version.
   to use it
 * Added code to rebalance account when status changes, bug fix
 * refactored transaction detail table into its own component
+* Added transaction summary table, bug fixes
+
+### To Do:
+
+* navigation by date
+* navigation by account
+* graph of deposit account balance totals over time

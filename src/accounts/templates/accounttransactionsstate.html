@@ -1,12 +1,34 @@
 
-<h1>Account {{$ctrl.getAccount($ctrl.transactionDetails.account_id).name}}
-  for {{$ctrl.transactionDetails.month}}</h1>
-
-<p>Have {{$ctrl.transactionDetails.transactions.length}} transactions</p>
+<h1>Account {{$ctrl.getAccountTitle()}}</h1>
 
 <transaction-detail-table
-    transactions="$ctrl.transactionDetails.transactions"
-    openingDate='$ctrl.transactionDetails.balance_date'
-    openingPendingBalance='$ctrl.transactionDetails.pending_balance'
-    openingClearedBalance='$ctrl.transactionDetails.cleared_balance'>
+    transactions='$ctrl.transactionDetails.transactions'
+    opening-date='{{$ctrl.transactionDetails.balance_date}}'
+    opening-pending-balance='{{$ctrl.transactionDetails.pending_balance}}'
+    opening-cleared-balance='{{$ctrl.transactionDetails.cleared_balance}}'>
 </transaction-detail-table>
+
+<h2>Transaction Summary</h2>
+
+<table class='grid-table'>
+  <tr>
+    <th></th>
+    <th>Pending</th>
+    <th>Cleared</th>
+  </tr>
+  <tr>
+    <td>Deposits</td>
+    <td class='currency'>{{$ctrl.totalPendingDeposits | currency}}</td>
+    <td class='currency'>{{$ctrl.totalClearedDeposits | currency}}</td>
+  </tr>
+  <tr>
+    <td>Withdrawals</td>
+    <td class='currency'>{{$ctrl.totalPendingWithdrawals | currency}}</td>
+    <td class='currency'>{{$ctrl.totalClearedWithdrawals | currency}}</td>
+  </tr>
+  <tr>
+    <td>Balance</td>
+    <td class='currency'>{{$ctrl.totalPendingDeposits - $ctrl.totalPendingWithdrawals | currency}}</td>
+    <td class='currency'>{{$ctrl.totalClearedDeposits - $ctrl.totalClearedWithdrawals | currency}}</td>
+  </tr>
+</table>
