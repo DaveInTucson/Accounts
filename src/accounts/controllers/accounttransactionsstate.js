@@ -5,11 +5,6 @@
   angular.module('Accounts')
     .controller('AccountTransactionsStateController', AccountTransactionsStateController);
 
-  let date_re  = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
-  let monthNames = ['month 0',
-                    'January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-
   // this function annotates each transaction with some useful information that
   // will make it easier to do stuff like compute account balances, and find
   // the other account involved in the transaction
@@ -83,8 +78,8 @@
   }
 
 
-  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService', '$scope'];
-  function AccountTransactionsStateController(transactionDetails, AccountCacheService, $scope)
+  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService', '$scope', 'UtilsService'];
+  function AccountTransactionsStateController(transactionDetails, AccountCacheService, $scope, UtilsService)
   {
     let $ctrl = this;
 
@@ -113,14 +108,10 @@
     $ctrl.getAccountTitle = function()
     {
       let date = $ctrl.transactionDetails.month;
-      let matchInfo = date_re.exec(date);
-      if (matchInfo)
+      let dateInfo = UtilsService.parseSQLDate(date);
+      if (dateInfo)
       {
-        let year = matchInfo[1];
-        let monthNumber = parseInt(matchInfo[2]);
-        let monthName = monthNames[monthNumber];
-        if (null === monthName || undefined === monthName) monthName = "month " + monthNumber;
-        date = monthName + ', ' + String(year);
+        date =dateInfo.monthName + ', ' + String(dateInfo.year);
       }
 
       let accountName = 'account ' + $ctrl.transactionDetails.account_id;

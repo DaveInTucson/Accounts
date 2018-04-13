@@ -19,21 +19,17 @@
 
     $ctrl.onChange = function()
     {
-      try {
-        AccountDBService.updateTransactionStatus($ctrl.transaction)
-        .then(function(result)
-        {
-          //console.log('transaction status updated, result=', result);
-          $ctrl.originalStatus = $ctrl.transaction.status;
-          $scope.$emit('accountdetails:recomputeBalance')
-        })
-        .catch(function(result) {
-          console.log('transaction status error, caught result=', result)
-          $ctrl.transaction.status = $ctrl.originalStatus;
-        });
-      } catch (e) {
-          console.log('caught exception', e);
-      }
+      AccountDBService.updateTransactionStatus($ctrl.transaction)
+      .then(function(result)
+      {
+        //console.log('transaction status updated, result=', result);
+        $ctrl.originalStatus = $ctrl.transaction.status;
+        $scope.$emit('accountdetails:recomputeBalance')
+      })
+      .catch(function(result) {
+        console.log('transaction status error, caught result=', result)
+        $ctrl.transaction.status = $ctrl.originalStatus;
+      });
     }
   } // StatusSelectorController
 })();

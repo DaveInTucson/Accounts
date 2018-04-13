@@ -14,10 +14,21 @@ table.grid-table th, table.grid-table td
   padding-right: .3em;
 }
 
+.inline-block
+{
+  display: inline-block;
+  vertical-align: top;
+  margin: .5em;
+}
+
 .currency {
   text-align: right;
 }
 
+.monthly-statement
+{
+  border-bottom: 1px solid #0f2c6e;
+}
 
 .monthly-statement th
 {
@@ -42,4 +53,31 @@ table.grid-table th, table.grid-table td
 .monthly-statement td:last-child
 {
     max-width: 450px;
+}
+
+/* tree navigation styling */
+ul.tree-nav
+{
+  list-style: none;
+  padding-left: 1em;
+  /* border: 1px solid black; */
+}
+
+.tree-nav-root {
+  border: 1px solid #ddd;
+}
+
+ul.tree-nav .triangle
+{
+  font-size: 70%;
+}
+
+ul.tree-nav .clickable
+{
+  cursor: pointer;
+}
+
+ul.tree-nav .clickable:hover
+{
+  border: 1px solid #bbb;
 }

@@ -57,6 +57,9 @@
       $state.go('accountTransactions', { accountID: $ctrl.accountId, month:month });
     };
 
+    // This function takes the list of months the account has been active (as
+    // provided by the database) and converts it to a two-level year/month
+    // hierarchy suitable for rendering the navigation tree
     function makeActiveYears(accountActivity)
     {
       let lastYearValue = 0;

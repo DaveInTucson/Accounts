@@ -37,3 +37,4 @@ working in the Handlebars version.
 * summarize accounts by category
 * display all pending transactions
 * next/previous links
+* log DB access error
