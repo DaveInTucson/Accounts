@@ -30,7 +30,11 @@
         transactions[i].relative_amount = transactions[i].amount;
         transactions[i].other_account_id = transactions[i].from_id;
       }
-      else throw "this should never happen";
+      else
+      {
+        console.log('account_id=', transactionDetails.account_id, ', transaction=', transactions[i]);
+        throw "this should never happen";
+      }
     }
   } // annotateTransactions
 
@@ -84,11 +88,16 @@
   {
     let $ctrl = this;
 
-    $ctrl.transactionDetails = transactionDetails;
+    setTransactionDetails(transactionDetails);
 
-    annotateTransactions($ctrl.transactionDetails);
-    let tallies = computeBalances($ctrl.transactionDetails);
-    setTallies(tallies);
+    function setTransactionDetails (transactionDetails)
+    {
+      $ctrl.transactionDetails = transactionDetails;
+      annotateTransactions($ctrl.transactionDetails);
+      let tallies = computeBalances($ctrl.transactionDetails);
+      setTallies(tallies);
+    }
+
 
     $ctrl.getAccount = function(accountID)
     {

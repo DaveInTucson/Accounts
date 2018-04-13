@@ -25,9 +25,15 @@ working in the Handlebars version.
 * Added code to rebalance account when status changes, bug fix
 * refactored transaction detail table into its own component
 * Added transaction summary table, bug fixes
+* added active date navigation to account transaction state
 
 ### To Do:
 
-* navigation by date
 * navigation by account
 * graph of deposit account balance totals over time
+* edit existing transactions
+* insert new transactions
+* account management
+* summarize accounts by category
+* display all pending transactions
+* next/previous links

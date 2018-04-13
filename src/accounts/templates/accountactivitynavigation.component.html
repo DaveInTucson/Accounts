@@ -1,0 +1,13 @@
+<h2>Active Dates</h2>
+
+<ul class='tree-nav tree-nav-root'>
+  <li ng-repeat='year in $ctrl.activeYears'>
+    <span class='clickable' ng-click='$ctrl.toggleTree($index)'>
+      <span class='triangle'>{{$ctrl.triangle($index)}}</span> {{year.year}}</span>
+    <ul class='tree-nav' ng-show='$ctrl.treeIsOpen($index)'>
+      <li ng-repeat='month in year.months'>
+        <span class='clickable' ng-click='$ctrl.selectMonth(month.fullDate)'>{{month.monthName}}</span>
+      </li>
+    </ul>
+  </li>
+</ul>
