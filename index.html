@@ -5,6 +5,10 @@
   <link rel='stylesheet' type='text/css' href='css/accounts.css' />
 </head><body ng-app='Accounts'>
 
+  <nav class='nav-global'>
+    <a ui-sref='depositBalances'>Deposit Balances</a> |
+    <account-selector></account-selector> |
+  </nav>
   <ui-view>
     <div class="text-center initial-loading">
       <h2>Loading Site...</h2>
@@ -31,5 +35,6 @@
   <script src='src/accounts/components/accountlink.js'></script>
   <script src='src/accounts/components/statusselector.js'></script>
   <script src='src/accounts/components/accountactivitynavigation.js'></script>
-
+  <script src='src/accounts/components/accountselector.js'></script>
+  
 </body></html>

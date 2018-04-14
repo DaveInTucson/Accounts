@@ -1,0 +1,7 @@
+Select account: <select ng-change='$ctrl.onChange()' ng-model='$ctrl.selectedAccount'>
+  <optgroup ng-repeat='type in $ctrl.accountTypes()' label='{{type}}'>
+    <option ng-repeat='account in $ctrl.getAccounts(type)' value="{{account.id}}">
+      {{account.name}}
+    </option>
+  </optgroup>
+</select>

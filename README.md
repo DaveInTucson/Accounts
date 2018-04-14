@@ -26,10 +26,17 @@ working in the Handlebars version.
 * refactored transaction detail table into its own component
 * Added transaction summary table, bug fixes
 * added active date navigation to account transaction state
+* added global account selector
 
 ### To Do:
 
-* navigation by account
+* reload button?
+* log DB access error
+* display negative amounts and balances in red
+* testing and bug fixes as necessary
+
+## Phase 2
+
 * graph of deposit account balance totals over time
 * edit existing transactions
 * insert new transactions
@@ -37,4 +44,3 @@ working in the Handlebars version.
 * summarize accounts by category
 * display all pending transactions
 * next/previous links
-* log DB access error

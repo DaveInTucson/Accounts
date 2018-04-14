@@ -2,6 +2,12 @@ body {
   margin-left: 1em;
 }
 
+.nav-global
+{
+  padding: .2em;
+  border: 1px solid black;
+}
+
 /* Preferred table defaults */
 table { border-collapse: collapse; }
 th { text-align: left; }
