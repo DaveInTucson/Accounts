@@ -88,7 +88,7 @@ ul.tree-nav .triangle
   font-size: 70%;
 }
 
-ul.tree-nav .clickable
+.clickable
 {
   cursor: pointer;
 }

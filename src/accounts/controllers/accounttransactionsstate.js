@@ -78,10 +78,12 @@
   }
 
 
-  AccountTransactionsStateController.$inject = ['transactionDetails', 'AccountCacheService', '$scope', 'UtilsService'];
-  function AccountTransactionsStateController(transactionDetails, AccountCacheService, $scope, UtilsService)
+  AccountTransactionsStateController.$inject = [
+    'transactionDetails', 'AccountCacheService', '$scope', 'UtilsService', 'AccountDBService'];
+  function AccountTransactionsStateController(transactionDetails, AccountCacheService, $scope, UtilsService, AccountDBService)
   {
     let $ctrl = this;
+    let cancelFns = [];
 
     setTransactionDetails(transactionDetails);
 
@@ -99,11 +101,21 @@
       return AccountCacheService.getAccount(accountID);
     };
 
-    let cancelFn = $scope.$on('accountdetails:recomputeBalance', function ()
+    cancelFns.push($scope.$on('accountdetails:recomputeBalance', function ()
     {
       console.log('received accountdetails:recomputeBalance');
       setTallies(computeBalances($ctrl.transactionDetails));
-    });
+    }));
+
+    cancelFns.push($scope.$on('reloadButton:reload', function ()
+    {
+      AccountDBService.getTransactionDetails(
+        $ctrl.transactionDetails.account_id,
+        $ctrl.transactionDetails.month).then(function (newTransactionDetails) {
+          setTransactionDetails(newTransactionDetails);
+          console.log('new transaction details received and loaded');
+        });
+    }));
 
     $ctrl.getAccountTitle = function()
     {
@@ -121,7 +133,7 @@
     };
 
     $ctrl.$onDestroy = function()
-    { cancelFn(); }
+    { cancelFns.foreach(function (cancelFn) { cancelFn(); }); }
 
     function setTallies(tallies)
     {

@@ -23,17 +23,18 @@ working in the Handlebars version.
   * active date navigation
 * global link to deposit balance page
 * global account selector
+* reload button
 
 ### To Do:
 
 * log DB access error/show system status
 * display negative amounts and balances in red
-* reload button?
-* do something else when navigating to date prior to first account transaction?
+* dog food
 * testing and bug fixes as necessary
 
 ## Phase 2
 
+* do something else when navigating to date prior to first account transaction?
 * it would be good to do something sensible in accountTransactions when an
   account doesn't have any transactions
 * graph of deposit account balance totals over time
