@@ -27,6 +27,15 @@ table.grid-table th, table.grid-table td
   margin: .5em;
 }
 
+.inline-block h2
+{
+  margin-bottom: .2em;
+}
+h2.low-top
+{
+  margin-top: 0;
+}
+
 .currency {
   text-align: right;
 }
@@ -70,6 +79,7 @@ ul.tree-nav
 }
 
 .tree-nav-root {
+  margin-top: 0;
   border: 1px solid #ddd;
 }
 

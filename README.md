@@ -29,11 +29,13 @@ working in the Handlebars version.
 * log DB access error/show system status
 * display negative amounts and balances in red
 * reload button?
-* do something else when navigating to before first account transaction?
+* do something else when navigating to date prior to first account transaction?
 * testing and bug fixes as necessary
 
 ## Phase 2
 
+* it would be good to do something sensible in accountTransactions when an
+  account doesn't have any transactions
 * graph of deposit account balance totals over time
 * edit existing transactions
 * insert new transactions
