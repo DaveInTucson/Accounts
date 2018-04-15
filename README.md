@@ -12,27 +12,24 @@ platform for extending it beyond where I got using Handlebars
 The first step is to replicate more or less the functionality that's already
 working in the Handlebars version.
 
-* Implemented depostbalances state, started on accountTransactions state
-* Implemented basic transactions display
-* Added account-link component and account links to transactions display
-* Added status selector and logic to update database
-* Refactored Ajax logic into AjaxUtilsService, removed some log calls, cleaned
-  up the logic in computeBalances (accounttransactionsstate.js)
-* Refactored transaction annotation logic to simplify balance calculation and
-  account access, bug fixes
-* Created AccountCacheService and refactored AccountTransactionsStateController
-  to use it
-* Added code to rebalance account when status changes, bug fix
-* refactored transaction detail table into its own component
-* Added transaction summary table, bug fixes
-* added active date navigation to account transaction state
-* added global account selector
+* Implemented depostbalances state, displays deposit accounts, balances, and
+  cumulative balances (pending and cleared)
+* Implemented accountTransactions state, display account transactions for a given month
+  * basic transactions display
+  * account links
+  * status selector and logic to update database
+  * balance update when a transaction status changes
+  * transaction summary table
+  * active date navigation
+* global link to deposit balance page
+* global account selector
 
 ### To Do:
 
-* reload button?
-* log DB access error
+* log DB access error/show system status
 * display negative amounts and balances in red
+* reload button?
+* do something else when navigating to before first account transaction?
 * testing and bug fixes as necessary
 
 ## Phase 2
