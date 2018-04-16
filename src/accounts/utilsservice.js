@@ -22,15 +22,17 @@
         let year        = parseInt(matchInfo[1]);
         let monthNumber = parseInt(matchInfo[2]);
         let dayNumber   = parseInt(matchInfo[3]);
-        let monthName = monthNames[monthNumber];
+        let monthName   = 'month ' + monthNumber;
+
+        if (1 <= monthNumber && monthNumber <= 12)
+          monthNames[monthNumber];
 
         return {
           year:year, monthNumber:monthNumber, dayNumber:dayNumber, monthName:monthName
         };
-
-        return null;
       }
 
+      return null;
     }
   }
 })();
