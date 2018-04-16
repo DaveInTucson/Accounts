@@ -25,7 +25,7 @@
         let monthName   = 'month ' + monthNumber;
 
         if (1 <= monthNumber && monthNumber <= 12)
-          monthNames[monthNumber];
+          monthName = monthNames[monthNumber];
 
         return {
           year:year, monthNumber:monthNumber, dayNumber:dayNumber, monthName:monthName
