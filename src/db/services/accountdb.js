@@ -14,7 +14,7 @@
 
     service.getDepositBalances = function()
     {
-      return AjaxUtilsService.ajaxGet({ url: ApiBasePath + '/get-deposit-balances' });
+      return AjaxUtilsService.ajaxGet('get deposit balances', { url: ApiBasePath + '/get-deposit-balances' });
     };
 
     service.getTransactionDetails = function(accountID, month)

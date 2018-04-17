@@ -11,14 +11,14 @@
   <tr ng-repeat='account in $ctrl.depositBalances'>
     <!-- <td><a ui-sref='accountTransactions({accountID:account.id})'>{{account.name}}</a></td> -->
     <td><account-link account="account"></account-link></td>
-    <td class='currency'>{{account.pending_balance | currency}}</td>
-    <td class='currency'>{{account.cleared_balance | currency}}</td>
-    <td class='currency'>{{account.pending_balance-account.cleared_balance | currency}}</td>
+    <td class='currency'><money amount='{{account.pending_balance}}'></money></td>
+    <td class='currency'><money amount='{{account.cleared_balance}}'></money></td>
+    <td class='currency'><money amount='{{account.pending_balance-account.cleared_balance}}'></money></td>
   </tr>
   <tr>
     <td>Total</td>
-    <td class='currency'>{{$ctrl.pendingTotal | currency}}</td>
-    <td class='currency'>{{$ctrl.clearedTotal | currency}}</td>
-    <td class='currency'>{{$ctrl.pendingTotal - $ctrl.clearedTotal | currency}}</td>
+    <td class='currency'><money amount='{{$ctrl.pendingTotal}}'></money></td>
+    <td class='currency'><money amount='{{$ctrl.clearedTotal}}'></money></td>
+    <td class='currency'><money amount='{{$ctrl.pendingTotal - $ctrl.clearedTotal}}'></money></td>
   </tr>
 </table>
