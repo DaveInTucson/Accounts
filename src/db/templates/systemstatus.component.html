@@ -1,0 +1,8 @@
+<div>
+  <p><b>Status:</b> {{$ctrl.currentStatus}}</p>
+
+  <p ng-if='$ctrl.systemErrors.length'>
+    <ul>
+      <li ng-repeat='error in $ctrl.systemErrors'>{{error.message}}</li>
+    </ul>
+</div>

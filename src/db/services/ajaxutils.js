@@ -8,7 +8,6 @@
   // float_re is incomplete, but close enough for my purposes
   let int_re   = /^-?\d+$/;
   let float_re = /^-?\d+\.\d+$/;
-  let date_re  = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
 
   // When JSON is passed over Ajax, scalar value arrives as a string.
   // This function traverses the object and converts everything that
@@ -64,21 +63,30 @@
     return parms.join('&');
   }
 
-  AjaxUtilsService.$inject = ['$http', '$q'];
-  function AjaxUtilsService($http, $q)
+  AjaxUtilsService.$inject = ['$http', '$q', 'DBStatusService'];
+  function AjaxUtilsService($http, $q, DBStatusService)
   {
     let service = this;
 
-    service.ajaxGet = function(config)
+    service.ajaxGet = function(context, config)
     {
       config.method = 'GET';
+      if (typeof context !== 'string') throw 'context must be a string';
+      DBStatusService.broadcastLoading(context)
       return $http(config).then(function(response) {
+        DBStatusService.broadcastSuccess(context)
         return parseNumbers(response.data);
+      })
+      .catch (function (info) {
+        console.log('in catch, info=', info);
+        DBStatusService.broadcastError(context, info);
       });
     }
 
-    service.ajaxPost = function(config)
+    service.ajaxPost = function(context, config)
     {
+      if (typeof context !== 'string') throw 'context must be a string';
+      DBStatusService.broadcastLoading(context);
       // for some reason $http doesn't take care of form encoding automatically,
       // so we must do it ourselves
       let post = {
@@ -90,7 +98,11 @@
         },
       };
       return $http(post).then(function(response) {
+        DBStatusService.broadcastSuccess(context);
         return parseNumbers(response.data);
+      })
+      .catch (function (error) {
+        DBStatusService.broadcastError(context, error);
       });
     }
 

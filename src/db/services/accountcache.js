@@ -14,9 +14,12 @@
 
     AccountDBService.getAccounts().then(function(accounts) {
       //console.log('have accounts');
-      $ctrl.by_name = accounts.by_name;
-      $ctrl.by_id   = accounts.by_id;
-      $rootScope.$broadcast('accountCache:loaded', $ctrl);
+      if (accounts)
+      {
+        $ctrl.by_name = accounts.by_name;
+        $ctrl.by_id   = accounts.by_id;
+        $rootScope.$broadcast('accountCache:loaded', $ctrl);
+      }
     }).catch(function (status) {
       console.log('getAccounts failed, status=', status);
     });

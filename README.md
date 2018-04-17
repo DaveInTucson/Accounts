@@ -24,11 +24,12 @@ working in the Handlebars version.
 * global link to deposit balance page
 * global account selector
 * reload button
+* log DB access error/show system status
 
 ### To Do:
 
-* log DB access error/show system status
 * display negative amounts and balances in red
+* fix system so it doesn't fall over and die when DB access fails
 * dog food
 * testing and bug fixes as necessary
 

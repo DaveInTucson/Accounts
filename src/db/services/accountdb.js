@@ -19,7 +19,7 @@
 
     service.getTransactionDetails = function(accountID, month)
     {
-      return AjaxUtilsService.ajaxGet({
+      return AjaxUtilsService.ajaxGet('get transaction details', {
         url: ApiBasePath + '/get-transaction-details',
         params : {
           'accountID' : accountID,
@@ -34,7 +34,7 @@
       {
         return AjaxUtilsService.promisify(service.accounts);
       }
-      return AjaxUtilsService.ajaxGet({ url: ApiBasePath + '/get-accounts' })
+      return AjaxUtilsService.ajaxGet('get accounts', { url: ApiBasePath + '/get-accounts' })
       .then(function(accounts)
       {
         service.accounts = accounts;
@@ -44,7 +44,7 @@
 
     service.updateTransactionStatus = function(transaction)
     {
-      return AjaxUtilsService.ajaxPost({
+      return AjaxUtilsService.ajaxPost('updating transaction', {
         url: ApiBasePath + '/update-transaction-status',
         data : {
           date_posted : transaction.date_posted,

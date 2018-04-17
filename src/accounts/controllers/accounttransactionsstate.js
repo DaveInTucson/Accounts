@@ -10,6 +10,8 @@
   // the other account involved in the transaction
   function annotateTransactions(transactionDetails)
   {
+    if (!transactionDetails) return;
+
     let transactions = transactionDetails.transactions;
 
     for (let i = 0; i < transactions.length; i++)
@@ -43,32 +45,34 @@
     let totalClearedDeposits = 0;
     let totalClearedWithdrawals = 0;
 
-    let pendingBalance = transactionDetails.pending_balance;
-    let clearedBalance = transactionDetails.cleared_balance;
-
-    let transactions = transactionDetails.transactions;
-    for (let i = 0; i < transactions.length; i++)
+    if (transactionDetails)
     {
-      if (transactions[i].status !== 'void')
+      let pendingBalance = transactionDetails.pending_balance;
+      let clearedBalance = transactionDetails.cleared_balance;
+
+      let transactions = transactionDetails.transactions;
+      for (let i = 0; i < transactions.length; i++)
       {
-        if (transactions[i].relative_amount < 0)
+        if (transactions[i].status !== 'void')
         {
-          totalPendingWithdrawals += transactions[i].amount;
-          if (transactions[i].status === 'cleared')
-            totalClearedWithdrawals += transactions[i].amount;
+          if (transactions[i].relative_amount < 0)
+          {
+            totalPendingWithdrawals += transactions[i].amount;
+            if (transactions[i].status === 'cleared')
+              totalClearedWithdrawals += transactions[i].amount;
+          }
+          else
+          {
+            totalPendingDeposits += transactions[i].amount;
+            if (transactions[i].status === 'cleared')
+              totalClearedDeposits += transactions[i].amount;
+          }
         }
-        else
-        {
-          totalPendingDeposits += transactions[i].amount;
-          if (transactions[i].status === 'cleared')
-            totalClearedDeposits += transactions[i].amount;
-        }
+
+        transactions[i].pendingBalance = pendingBalance + totalPendingDeposits - totalPendingWithdrawals;
+        transactions[i].clearedBalance = clearedBalance + totalClearedDeposits - totalClearedWithdrawals;
       }
-
-      transactions[i].pendingBalance = pendingBalance + totalPendingDeposits - totalPendingWithdrawals;
-      transactions[i].clearedBalance = clearedBalance + totalClearedDeposits - totalClearedWithdrawals;
     }
-
     return {
       totalPendingDeposits: totalPendingDeposits,
       totalPendingWithdrawals: totalPendingWithdrawals,
@@ -85,6 +89,10 @@
     let $ctrl = this;
     let cancelFns = [];
 
+    if (!transactionDetails)
+    {
+      transactionDetails = {month: '0000-00-00', transactions:[], account_activity:[], };
+    }
     setTransactionDetails(transactionDetails);
 
     function setTransactionDetails (transactionDetails)
