@@ -14,12 +14,12 @@
   {
     let $ctrl = this;
 
-    $ctrl.accounts = AccountCacheService.getSortedList();
+    $ctrl.accounts = AccountCacheService.getByType();
 
     let cancelFns = [], cancelFn;
 
     cancelFn = $scope.$on('accountCache:loaded', function (event, service) {
-      $ctrl.accounts = service.getSortedList();
+      $ctrl.accounts = service.getByType();
     });
     cancelFns.push(cancelFn);
 
@@ -42,7 +42,7 @@
     $ctrl.accountTypes = function()
     {
       if (!$ctrl.accounts) return [];
-      return Object.keys($ctrl.accounts).sort();
+      return $ctrl.accounts.types;
     };
 
     $ctrl.getAccounts = function(type)

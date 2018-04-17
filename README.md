@@ -29,14 +29,14 @@ working in the Handlebars version.
 
 Everything from the old version is now working in the Angular version (plus some
 new and improved features). I'm really pleased with how the month navigation
-component came out, as well as the fact that routing URLs now means it will now
+component came out, as well as the fact that routing URLs means it will now
 just redisplay the old page on reload (instead of going back to the "front page").
 
 ## Phase 2
 
 ### To Do:
 * next/previous month links
-* search feature
+* search feature (display all pending transactions)
 * do something else when navigating to date prior to first account transaction?
 * it would be good to do something sensible in accountTransactions when an
   account doesn't have any transactions
@@ -45,5 +45,4 @@ just redisplay the old page on reload (instead of going back to the "front page"
 * insert new transactions
 * account management
 * summarize accounts by category
-* display all pending transactions
 * testing and bug fixes as necessary
