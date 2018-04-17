@@ -25,16 +25,16 @@ working in the Handlebars version.
 * global account selector
 * reload button
 * log DB access error/show system status
-
-### To Do:
-
 * display negative amounts and balances in red
-* fix system so it doesn't fall over and die when DB access fails
+
+Everything from the old version is now working in the Angular version (plus some
+new and improved features)
 * dog food
-* testing and bug fixes as necessary
 
 ## Phase 2
 
+### To Do:
+* search feature
 * do something else when navigating to date prior to first account transaction?
 * it would be good to do something sensible in accountTransactions when an
   account doesn't have any transactions
@@ -44,4 +44,5 @@ working in the Handlebars version.
 * account management
 * summarize accounts by category
 * display all pending transactions
-* next/previous links
+* next/previous month links
+* testing and bug fixes as necessary

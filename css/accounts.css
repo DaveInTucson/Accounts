@@ -2,6 +2,10 @@ body {
   margin-left: 1em;
 }
 
+.negative-amount {
+  color: red;
+}
+
 .nav-global
 {
   padding: .2em;

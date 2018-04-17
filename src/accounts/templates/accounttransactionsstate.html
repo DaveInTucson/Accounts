@@ -29,18 +29,18 @@
     </tr>
     <tr>
       <td>Deposits</td>
-      <td class='currency'>{{$ctrl.totalPendingDeposits | currency}}</td>
-      <td class='currency'>{{$ctrl.totalClearedDeposits | currency}}</td>
+      <td class='currency'><money amount='{{$ctrl.totalPendingDeposits}}'></money></td>
+      <td class='currency'><money amount='{{$ctrl.totalClearedDeposits}}'></money></td>
     </tr>
     <tr>
       <td>Withdrawals</td>
-      <td class='currency'>{{$ctrl.totalPendingWithdrawals | currency}}</td>
-      <td class='currency'>{{$ctrl.totalClearedWithdrawals | currency}}</td>
+      <td class='currency'><money amount='{{$ctrl.totalPendingWithdrawals}}'></money></td>
+      <td class='currency'><money amount='{{$ctrl.totalClearedWithdrawals}}'></money></td>
     </tr>
     <tr>
       <td>Balance</td>
-      <td class='currency'>{{$ctrl.totalPendingDeposits - $ctrl.totalPendingWithdrawals | currency}}</td>
-      <td class='currency'>{{$ctrl.totalClearedDeposits - $ctrl.totalClearedWithdrawals | currency}}</td>
+      <td class='currency'><money amount='{{$ctrl.totalPendingDeposits - $ctrl.totalPendingWithdrawals}}'></money></td>
+      <td class='currency'><money amount='{{$ctrl.totalClearedDeposits - $ctrl.totalClearedWithdrawals}}'></money></td>
     </tr>
   </table>
 </div>
