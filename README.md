@@ -28,12 +28,14 @@ working in the Handlebars version.
 * display negative amounts and balances in red
 
 Everything from the old version is now working in the Angular version (plus some
-new and improved features)
-* dog food
+new and improved features). I'm really pleased with how the month navigation
+component came out, as well as the fact that routing URLs now means it will now
+just redisplay the old page on reload (instead of going back to the "front page").
 
 ## Phase 2
 
 ### To Do:
+* next/previous month links
 * search feature
 * do something else when navigating to date prior to first account transaction?
 * it would be good to do something sensible in accountTransactions when an
@@ -44,5 +46,4 @@ new and improved features)
 * account management
 * summarize accounts by category
 * display all pending transactions
-* next/previous month links
 * testing and bug fixes as necessary
