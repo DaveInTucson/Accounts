@@ -34,6 +34,11 @@
             }],
         }
       })
+      .state('accountCategories', {
+        url: '/accountCategories',
+        templateUrl: 'src/accounts/templates/accountcategoriesstate.html',
+        controller: 'AccountCategoriesController as $ctrl',
+      })
       ;
   };
   //console.log('leaving accounts.routes.js');

@@ -87,13 +87,12 @@
     });
 
     $ctrl.getAccount = function(accountID)
-    {
-        return $ctrl.by_id[accountID];
-    };
+    { return $ctrl.by_id[accountID]; };
 
     $ctrl.getByType = function()
-    {
-      return $ctrl.by_type;
-    }
+    { return $ctrl.by_type; }
+
+    $ctrl.getByCategory = function()
+    { return $ctrl.by_category; }
   }
 })();

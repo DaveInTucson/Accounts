@@ -1,0 +1,9 @@
+<h1>Accounts by Category</h1>
+<div ng-repeat='category in $ctrl.categoryList'>
+  <h2>{{category}}</h2>
+  <ul>
+    <li ng-repeat='account in $ctrl.categoryAccounts(category)'>
+      {{account.name}}
+    </li>
+  </ul>
+</div>
