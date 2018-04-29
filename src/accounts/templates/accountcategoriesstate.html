@@ -1,8 +1,30 @@
 <h1>Accounts by Category</h1>
-<div ng-repeat='category in $ctrl.categoryList'>
-  <h2>{{category}}</h2>
+
+<p>Select category:
+  <select ng-if='$ctrl.categories' ng-model='$ctrl.selectedCategoryID' ng-click='$ctrl.onSelectCategory()'>
+    <option ng-repeat='category in $ctrl.categories' value="{{category.id}}">
+      {{category.name}}
+    </option>
+  </select>
+</p>
+
+<div ng-if='$ctrl.selectedCategoryID'>
+  <h2>Category {{$ctrl.getSelectedCategory().name}}</h2>
   <ul>
-    <li ng-repeat='account in $ctrl.categoryAccounts(category)'>
+    <li ng-repeat='account in $ctrl.selectedCategoryAccounts()'>
+      {{account.name}}
+    </li>
+  </ul>
+</div>
+
+<div ng-if='!$ctrl.selectedCategoryID'>
+  <h2>No category selected</h2>
+</div>
+
+<div ng-repeat='categoryName in $ctrl.categoryList'>
+  <h2>{{categoryName}}</h2>
+  <ul>
+    <li ng-repeat='account in $ctrl.categoryAccounts(categoryName)'>
       {{account.name}}
     </li>
   </ul>

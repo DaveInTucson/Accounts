@@ -5,61 +5,16 @@
   angular.module('DB')
     .service('AccountCacheService', AccountCacheService);
 
-  function makeAccountsByType(accounts)
+  function makeByID(a)
   {
-    let byType = { types: accounts.types }
-    for (let i = 0; i < accounts.types.length; i++)
+    let byID = [];
+
+    for (let i = 0; i < a.length; i++)
     {
-      byType[accounts.types[i]] = [];
+      byID[a[i].id] = a[i];
     }
 
-    // 0 is not used, and there's no guarantee every ID will be in use
-    for (let i = 0; i < accounts.by_id.length; i++)
-    {
-      if (accounts.by_id[i]) {
-        byType[accounts.by_id[i].type].push(accounts.by_id[i]);
-      }
-    }
-
-    //console.log('sortedList=', sortedList);
-    for (let i = 0; i < byType.types.length; i++)
-    {
-      byType[byType.types[i]].sort(function (a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      });
-    }
-
-    return byType;
-  }
-
-  function makeAccountsByCategory(accounts)
-  {
-    let categoryDict = { undefined: [] };
-    let categoriesByID = accounts.categories;
-
-    for (let i = 0; i < categoriesByID.length; i++)
-      if (categoriesByID[i]) categoryDict[categoriesByID[i].name] = [];
-
-    for (let i = 0; i < accounts.by_id.length; i++)
-      if (accounts.by_id[i])
-      {
-        let categoryName = 'undefined';
-        if (accounts.by_id[i].category_id)
-          categoryName = categoriesByID[accounts.by_id[i].category_id].name;
-        categoryDict[categoryName].push(accounts.by_id[i]);
-      }
-
-    for (let category in categoryDict)
-    {
-      categoryDict[category].sort(function (a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name === b.name) return 0;
-        return 1; });
-    }
-
-    return categoryDict;
+    return byID;
   }
 
   AccountCacheService.$inject = ['AccountDBService', '$rootScope'];
@@ -71,15 +26,18 @@
     $ctrl.by_category = [];
 
     AccountDBService.getAccounts().then(function(accounts) {
-      //console.log('have accounts');
       if (accounts)
       {
         //console.log('accounts=', accounts);
-        $ctrl.by_id   = accounts.by_id;
-        $ctrl.account_types = accounts.types;
-        $ctrl.account_categories = accounts.categories;
-        $ctrl.by_type = makeAccountsByType(accounts);
-        $ctrl.by_category = makeAccountsByCategory(accounts);
+        $ctrl.accountsSorted   = accounts.sorted_accounts;
+        $ctrl.categoriesSorted = accounts.sorted_categories;
+        $ctrl.typeNames        = accounts.type_names
+
+        $ctrl.accountsByID     = makeByID($ctrl.accountsSorted);
+        $ctrl.categoriesByID   = makeByID($ctrl.categoriesSorted);
+
+        $ctrl.accountsByType     = makeAccountsByType(accounts);
+        $ctrl.accountsByCategory = makeAccountsByCategory(accounts);
         $rootScope.$broadcast('accountCache:loaded', $ctrl);
       }
     }).catch(function (status) {
@@ -87,12 +45,55 @@
     });
 
     $ctrl.getAccount = function(accountID)
-    { return $ctrl.by_id[accountID]; };
+    { return $ctrl.accountsByID[accountID]; };
+
+    $ctrl.getCategory = function(categoryID)
+    { return $ctrl.categoriesByID[categoryID]; };
+    
+    $ctrl.getCategories = function()
+    { return $ctrl.categoriesSorted; }
 
     $ctrl.getByType = function()
-    { return $ctrl.by_type; }
+    { return $ctrl.accountsByType; }
 
     $ctrl.getByCategory = function()
-    { return $ctrl.by_category; }
+    { return $ctrl.accountsByCategory; }
+
+    function makeAccountsByType()
+    {
+      let byType = { types: $ctrl.typeNames }
+      for (let i = 0; i < $ctrl.typeNames.length; i++)
+      {
+        byType[$ctrl.typeNames[i]] = [];
+      }
+
+      // 0 is not used, and there's no guarantee every ID will be in use
+      for (let i = 0; i < $ctrl.accountsSorted.length; i++)
+      {
+        byType[$ctrl.accountsSorted[i].type].push($ctrl.accountsSorted[i]);
+      }
+
+      return byType;
+    } // makeAccountsByType
+
+    function makeAccountsByCategory()
+    {
+      let categoryDict = { undefined: [] };
+      let categoriesSorted = $ctrl.categoriesSorted;
+
+      for (let i = 0; i < categoriesSorted.length; i++)
+        categoryDict[categoriesSorted[i].name] = [];
+
+      for (let i = 0; i < $ctrl.accountsSorted.length; i++)
+      {
+        let categoryName = 'undefined';
+        if ($ctrl.accountsSorted[i].category_id)
+          categoryName = $ctrl.categoriesByID[$ctrl.accountsSorted[i].category_id].name;
+        categoryDict[categoryName].push($ctrl.accountsSorted[i]);
+      }
+
+      return categoryDict;
+    } // makeAccountsByCategory
+
   }
 })();
